@@ -1,5 +1,7 @@
 import turtle
 import math
+from urllib.request import urlopen
+from bs4 import BeautifulSoup
 
 # y = math.sin(math.radians(180))
 # print(y)
@@ -50,6 +52,7 @@ def setupWindow(screen):
   screen:(Screen object)
   return:(none)'''
   screen.setworldcoordinates(-10*2, -1*2, 10*2, 1*2)
+  
 
 def setupAxis(dart):
   '''sets up turtle to starting point
@@ -59,27 +62,47 @@ def setupAxis(dart):
   dart.goto(0, 0)
   dart.showturtle()
 
-def randomGraphColor
+def randomGraphColor(screen):
+  
+  red = int(screen.numinput("Red", "Choose a number between 0 and 255", minval=0, maxval=255))
+ 
+  green = int(screen.numinput("Blue","Choose another number between 0 and 255", minval=0, maxval=255))
+ 
+  blue = int(screen.numinput("Green", "Choose a third number between 0 and 255", minval=0, maxval=255))
+ 
+  return red, blue, green
+
+def scrapeBing():
+  url_to_scrape = "https://www.binghamton.edu/apps/messaging/announcement/"
+  request_page = urlopen(url_to_scrape) 
+  page_html = request_page.read()
+  request_page.close()
+  html_soup = BeautifulSoup(page_html, 'html.parser')
+  announcements = html_soup.find_all('li', class_="accordion-item")
+  print(announcements)
 
 ##########  Do Not Alter Any Code Past Here ########
 def main():
   #Part A
   wn = turtle.Screen()
   wn.tracer(5)
+  wn.colormode(255)
   dart = turtle.Turtle()
   dart.speed(10)
   drawSineCurve(dart)
 
   # #Part B
+  
   setupWindow(wn)
   setupAxis(dart)
   dart.speed(10)
-  dart.color("red")
+  dart.color(randomGraphColor(wn))
   drawSineCurve(dart)
-  dart.color("blue")
+  dart.color(randomGraphColor(wn))
   drawCosineCurve(dart)
-  dart.color("green")
+  dart.color(randomGraphColor(wn))
   drawTangentCurve(dart)
+  scrapeBing()
   wn.exitonclick()
 main()
 
