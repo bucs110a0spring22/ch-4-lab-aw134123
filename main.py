@@ -63,7 +63,9 @@ def setupAxis(dart):
   dart.showturtle()
 
 def randomGraphColor(screen):
-  
+  '''for creating different RGB values
+  screen:(Screen object)
+  return rbg values'''
   red = int(screen.numinput("Red", "Choose a number between 0 and 255", minval=0, maxval=255))
  
   green = int(screen.numinput("Blue","Choose another number between 0 and 255", minval=0, maxval=255))
@@ -73,13 +75,16 @@ def randomGraphColor(screen):
   return red, blue, green
 
 def scrapeBing():
+  '''for scraping binghamton announcement page
+  no input parameter
+  return announcements'''
   url_to_scrape = "https://www.binghamton.edu/apps/messaging/announcement/"
   request_page = urlopen(url_to_scrape) 
   page_html = request_page.read()
   request_page.close()
   html_soup = BeautifulSoup(page_html, 'html.parser')
   announcements = html_soup.find_all('li', class_="accordion-item")
-  print(announcements)
+  return announcements
 
 ##########  Do Not Alter Any Code Past Here ########
 def main():
@@ -102,7 +107,8 @@ def main():
   drawCosineCurve(dart)
   dart.color(randomGraphColor(wn))
   drawTangentCurve(dart)
-  scrapeBing()
+  announcements = scrapeBing()
+  print(announcements)
   wn.exitonclick()
 main()
 
