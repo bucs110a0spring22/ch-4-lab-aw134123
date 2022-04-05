@@ -59,6 +59,8 @@ def setupAxis(dart):
   dart.goto(0, 0)
   dart.showturtle()
 
+def randomGraphColor
+
 ##########  Do Not Alter Any Code Past Here ########
 def main():
   #Part A
